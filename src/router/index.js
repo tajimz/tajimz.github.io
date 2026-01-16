@@ -26,6 +26,9 @@ const router = createRouter({
       component: BlogView
     }
   ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0, behavior: 'smooth' }
+  },
 })
 
 export default router
