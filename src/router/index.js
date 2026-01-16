@@ -21,8 +21,8 @@ const router = createRouter({
       name: 'contact',
       component: Contactview
     },{
-      path:'/blogs',
-      name: 'blogs',
+      path:'/blog',
+      name: 'blog',
       component: BlogView
     }
   ],
