@@ -19,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="card h-100 shadow-sm border-0 transition-hover">
+    <div class="card h-100 shadow-sm border-1 transition-hover">
         <div class="card-img-top-container">
             <img :src="image" class="card-img-top" alt="Header Image">
         </div>
