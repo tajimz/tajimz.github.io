@@ -1,13 +1,16 @@
 <script setup>
 defineProps({
     title: {
-        default: 'Post title'
+        default: 'The Future of Sustainable Design'
     },
     body: {
-        default: 'This is a brief description of the content inside this card...'
+        default: 'Exploring how minimalist architecture and renewable materials are shaping the urban landscapes of 2026...'
     },
     category: {
-        default: 'General'
+        default: 'Architecture'
+    },
+    date: {
+        default: '24 May, 2026'
     },
     image: {
         default: 'https://picsum.photos/800/600'
@@ -19,29 +22,32 @@ defineProps({
 </script>
 
 <template>
-    <div class="card h-100 shadow-sm border-1 transition-hover">
-        <div class="card-img-top-container">
-            <img :src="image" class="card-img-top" alt="Header Image">
+    <div class="card h-100 border-1 shadow-sm overflow-hidden hover-shadow-lg">
+        <div class="ratio ratio-16x9">
+            <img :src="image" class="object-fit-cover" alt="Header Image">
         </div>
 
-        <div class="card-body p-4">
-            <div class="d-flex align-items-center mb-3">
-                <img :src="avatar" class="rounded-circle me-2" width="40" height="40" alt="Author">
-                <span class="badge rounded-pill bg-primary-soft text-primary">
-                    {{ category }}
-                </span>
+        <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center">
+                    <img :src="avatar" class="rounded-circle border border-2 me-2" width="32" height="32" alt="Author">
+                    <span class="badge bg-light text-primary border">
+                        {{ category }}
+                    </span>
+                </div>
+                <small class="text-muted fw-medium">{{ date }}</small>
             </div>
 
-            <h4 class="card-title fw-bold mb-2">
-                {{ title}}
-            </h4>
-            <p class="card-text text-muted mb-4">
-                {{ body}}
+            <h5 class="card-title fw-bold mb-2">
+                {{ title }}
+            </h5>
+            <p class="card-text text-muted small mb-4">
+                {{ body }}
             </p>
 
-            <div class="mt-auto">
-                <a href="#" class="text-decoration-none fw-semibold d-inline-flex align-items-center">
-                    Read More <i class="bi bi-arrow-right ms-2"></i>
+            <div class="mt-auto pt-3 border-top">
+                <a href="#" class="link-primary text-decoration-none fw-bold small text-uppercase">
+                    Read Article <i class="bi bi-chevron-right ms-1"></i>
                 </a>
             </div>
         </div>
@@ -49,27 +55,14 @@ defineProps({
 </template>
 
 <style scoped>
-.transition-hover {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+.hover-shadow-lg {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
-.transition-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+.hover-shadow-lg:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.125) !important;
 }
-
-.card-img-top-container {
-    height: 200px;
-    overflow: hidden;
-}
-
-.card-img-top {
-    width: 100%;
-    height: 100%;
+.object-fit-cover {
     object-fit: cover;
-}
-
-.bg-primary-soft {
-    background-color: #e7f1ff;
 }
 </style>
