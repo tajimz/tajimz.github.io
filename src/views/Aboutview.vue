@@ -5,12 +5,21 @@ import ProjectCard from '@/components/ProjectCard.vue';
 import { onBeforeMount, ref } from 'vue';
 
   const projects = ref([]);
+  const allProjects = ref([]);
+  const lastProjectId = ref(0);
   onBeforeMount(async()=>{
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await response.json();
+    allProjects.value = data;
     projects.value = data.slice(10,20);
 
   })
+
+  const loadMore = ()=>{
+    lastProjectId.value += 10;
+    const nextProjects = allProjects.value.slice(lastProjectId.value, lastProjectId.value+10);
+    projects.value = [...projects.value, ...nextProjects];
+  }
 </script>
 
 <template>
@@ -29,6 +38,8 @@ import { onBeforeMount, ref } from 'vue';
     <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
       <ProjectCard :title="`${project.title}`" :body="`${project.body}`" :image="`https://picsum.photos/600/400?random=${project.id}`"/>
     </div>
+    <button @click="loadMore()" class="btn btn-outline-primary mx-3 p-2" >Show More Projects</button>
+
     
     
   </div>
