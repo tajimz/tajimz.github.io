@@ -2,6 +2,18 @@
 import { RouterLink } from 'vue-router'; 
 import ProjectCard from '@/components/ProjectCard.vue';
 import Card from '../components/Card.vue';
+import featuredBlogList from '@/data/featuredBlogList';
+import featuredProjectList from '@/data/featuredProjectList';
+import { onBeforeMount, ref } from 'vue';
+
+const blogs = ref([]);
+const projects = ref([]);
+
+onBeforeMount(()=>{
+  blogs.value = featuredBlogList;
+  projects.value = featuredProjectList;
+})
+
 </script>
 
 <template>
@@ -24,8 +36,8 @@ import Card from '../components/Card.vue';
 
   <div class="row g-4 mb-5"> 
     <h4><strong>Featured Projects</strong></h4>
-     <div v-for="n in 3" :key="n" class="col-12 col-md-6 col-lg-4">
-      <ProjectCard :title="'Project Name: '+n" :image="'https://picsum.photos/600/400?random='+n+'0'"/>
+     <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
+      <ProjectCard :title="`${project.title}`" :image="`${project.image}`"  :body="`${project.body}`"  :githubLink="`${project.githubLink}`" />
     </div>
 
     <div class="col-12 text-center mt-4">
@@ -33,8 +45,8 @@ import Card from '../components/Card.vue';
     </div>
       <h4 class="mt-5"><strong>Featured Posts</strong></h4>
 
-    <div v-for="n in 3" :key="n" class="col-12 col-md-6 col-lg-4">
-      <Card :title="'Title ' + n" body="Content here..." :image="'https://picsum.photos/800/600?random='+n+'0'" :avatar="'https://picsum.photos/100/100?random'+n"/>
+    <div v-for="post in blogs" :key="post.id" class="col-12 col-md-6 col-lg-4">
+      <Card :id="`${post.id}`" :title="post.title" :body="post.body" :image="`${post.image}`" :avatar="`${post.avatar}`" :date="`${post.date}`" :category="`${post.category}`"/>
     </div>
     <div class="col-12 text-center mt-4">
       <RouterLink to="/blog" class="btn btn-outline-primary">View More Posts</RouterLink>
