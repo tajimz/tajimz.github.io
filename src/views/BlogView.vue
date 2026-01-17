@@ -1,7 +1,14 @@
 <script setup>
+import { onBeforeMount, ref } from 'vue';
 import Card from '../components/Card.vue';
-</script>
+  const posts = ref([]);
+  onBeforeMount(async()=>{
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await response.json();
+    posts.value = data.slice(0,10);
 
+  })
+</script>
 <template>
 <div class="my-4 pt-2"> 
     <div class="row">
@@ -23,8 +30,8 @@ import Card from '../components/Card.vue';
     </div>
   </div>
   <div class="row g-4 "> 
-    <div v-for="n in 10" :key="n" class="col-12 col-md-6 col-lg-4">
-      <Card :title="'Title ' + n" body="Content here..." :image="'https://picsum.photos/800/600?random='+n" :avatar="'https://picsum.photos/100/100?random'+n"/>
+    <div v-for="post in posts" :key="post.id" class="col-12 col-md-6 col-lg-4">
+      <Card :id="`${post.id}`" :title="post.title" :body="post.body" :image="`https://picsum.photos/800/600?random=${post.id}`" :avatar="`https://picsum.photos/100/100?random${post.id}`"/>
     </div>
   </div>
 </template>

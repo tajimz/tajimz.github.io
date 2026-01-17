@@ -2,6 +2,15 @@
 
 <script setup>
 import ProjectCard from '@/components/ProjectCard.vue';
+import { onBeforeMount, ref } from 'vue';
+
+  const projects = ref([]);
+  onBeforeMount(async()=>{
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await response.json();
+    projects.value = data.slice(10,20);
+
+  })
 </script>
 
 <template>
@@ -17,8 +26,8 @@ import ProjectCard from '@/components/ProjectCard.vue';
   
   <div class="row g-4"> 
     <h4><strong>Projects I've done</strong></h4>
-    <div v-for="n in 5" :key="n" class="col-12 col-md-6 col-lg-4">
-      <ProjectCard :title="'Project Name: '+n" :image="'https://picsum.photos/600/400?random='+n"/>
+    <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
+      <ProjectCard :title="`${project.title}`" :body="`${project.body}`" :image="`https://picsum.photos/600/400?random=${project.id}`"/>
     </div>
     
     

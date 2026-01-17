@@ -4,7 +4,7 @@ defineProps({
         type: String,
         default: 'Project Name'
     },
-    description: {
+    body: {
         type: String,
         default: 'A brief overview of the technical challenges solved and the impact of the project.'
     },
@@ -44,7 +44,7 @@ defineProps({
             </h5>
             
             <p class="card-text text-muted small mb-4">
-                {{ description }}
+                {{ body }}
             </p>
 
             <div class="mt-auto d-flex gap-2">

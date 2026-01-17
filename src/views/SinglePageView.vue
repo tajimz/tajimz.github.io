@@ -1,72 +1,96 @@
+<script setup>
+import { onBeforeMount, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+    const postId = useRoute().params.id;
+    const post = ref([]);
+    onBeforeMount(async()=>{
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+        post.value = await response.json();
+    })
+</script>
+
 <template>
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                
-                <nav class="mb-5">
-                    <button @click="$router.back()" class="btn btn-link link-dark text-decoration-none p-0 fw-medium border-0 bg-transparent">
-                        <i class="bi bi-arrow-left me-2"></i>Back to Thoughts
-                    </button>
-                </nav>
-
-                <header class="mb-4">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <span class="badge bg-dark rounded-pill px-3">Architecture</span>
-                        <span class="text-muted small border-start ps-3">24 May, 2026</span>
-                    </div>
-                    
-                    <h1 class="display-4 fw-bold mb-4 text-dark lh-1">
-                        The Future of Sustainable Design
-                    </h1>
-
-                    <div class="d-flex align-items-center">
-                        <img src="https://picsum.photos/100/100" class="rounded-circle me-2 border" width="32" height="32" alt="Me">
-                        <span class="text-secondary small">By <strong>Me</strong></span>
-                    </div>
-                </header>
-
-                <div class="mb-5">
-                    <img src="https://picsum.photos/800/600" class="img-fluid rounded-4 shadow-sm w-100 object-fit-cover hero-img" alt="Visual">
-                </div>
-
-                <article class="blog-text">
-                    <p class="fs-4 text-dark mb-5 lh-base italic-serif">
-                        "Exploring how minimalist architecture and renewable materials are shaping the urban landscapes of 2026..."
-                    </p>
-
-                    <div class="text-secondary fs-5 lh-lg">
-                        <p>When I sat down to write about the future of sustainable design, I realized that my interest in architecture isn't just about the technical side—it's about how we feel in the spaces we inhabit.</p>
-                        
-                        <p>This entry is a reflection of my personal journey exploring these themes throughout 2026. I hope these thoughts resonate with your own experiences of modern living.</p>
-                    </div>
-                </article>
-
-                <footer class="mt-5 pt-5 border-top text-center text-muted small">
-                    <p>Thanks for reading my blog. Stay curious.</p>
-                </footer>
-
-            </div>
-        </div>
+  <div class="row mt-2 my-4">
+    <div class="col-12 mb-3">
+      <button @click="$router.back()" class="btn btn-link text-decoration-none text-muted p-0 transition-base fw-semibold">
+        <i class="bi bi-arrow-left me-1"></i> Back
+      </button>
     </div>
+
+    <div class="col-12">
+      <div class="card border shadow-sm overflow-hidden rounded-3">
+        
+        <div class="p-0">
+          <img src="https://picsum.photos/1200/500" class="img-fluid w-100" style="max-height: 450px; object-fit: cover;" alt="Hero">
+        </div>
+
+        <div class="p-4 p-md-5 bg-light bg-opacity-10 border-bottom">
+          <div class="d-flex align-items-center">
+            <div class="rounded-3 bg-dark bg-opacity-10 text-dark d-flex align-items-center justify-content-center shadow-sm overflow-hidden" style="width: 56px; height: 56px;">
+              <img src="https://picsum.photos/100/100" class="img-fluid" alt="Author">
+            </div>
+            <div class="ms-3">
+              <div class="text-uppercase small fw-bold text-secondary" style="letter-spacing: 0.5px;">Published By</div>
+              <div class="fw-bold text-dark fs-5">Tajim <span class="text-muted fw-normal fs-6 mx-2">•</span> <span class="text-muted fw-normal fs-6">24 May, 2026</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 p-md-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <h1 class="display-6 fw-bold mb-4">{{ post.title }}</h1>
+              <div class="article-content text-secondary fs-5" style="line-height: 1.8;">
+                <p>
+                  {{ post.body }}
+                </p>
+                
+                <hr class="my-5 border-secondary-subtle">
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="small text-muted text-uppercase tracking-wider mb-0">End of Article</p>
+                  
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="small text-muted text-uppercase fw-bold tracking-wider d-none d-sm-inline">Share:</span>
+                    <a href="#" class="text-primary transition-base"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="#" class="text-dark transition-base"><i class="bi bi-twitter-x fs-5"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.hero-img {
-    height: 450px; 
+.transition-base {
+  transition: all 0.2s ease-in-out;
 }
-.object-fit-cover {
-    object-fit: cover;
-}
-.italic-serif {
-    font-style: italic;
-    color: #444;
-}
-.blog-text p {
-    margin-bottom: 1.5rem;
+
+.tracking-wider {
+  letter-spacing: 1px;
 }
 
 .btn-link:hover {
-    transform: translateX(-4px);
-    transition: transform 0.2s ease;
+  color: #0d6efd !important;
+  transform: translateX(-3px);
+}
+
+.article-content {
+  color: #4b5563;
+}
+
+.card {
+  border-color: rgba(0,0,0,0.08) !important;
+}
+
+/* Minimal hover for social icons */
+.article-content a:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
 }
 </style>

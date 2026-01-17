@@ -17,6 +17,9 @@ defineProps({
     },
     avatar: {
         default: 'https://picsum.photos/100/100'
+    },
+    id: {
+        default: '1'
     }
 });
 </script>
@@ -41,14 +44,14 @@ defineProps({
             <h5 class="card-title fw-bold mb-2">
                 {{ title }}
             </h5>
-            <p class="card-text text-muted small mb-4">
+            <p class="card-text text-muted small mb-4 text-truncate">
                 {{ body }}
             </p>
 
             <div class="mt-auto pt-3 border-top">
-                <a href="#" class="link-primary text-decoration-none fw-bold small text-uppercase">
+                <RouterLink :to="`/blog/${id}`" class="link-primary text-decoration-none fw-bold small text-uppercase">
                     Read Article <i class="bi bi-chevron-right ms-1"></i>
-                </a>
+                </RouterLink>
             </div>
         </div>
     </div>
@@ -64,5 +67,18 @@ defineProps({
 }
 .object-fit-cover {
     object-fit: cover;
+}
+.text-truncate {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits title to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3rem; /* Keeps cards aligned even with 1-line titles */
 }
 </style>
