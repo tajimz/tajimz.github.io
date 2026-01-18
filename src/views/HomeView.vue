@@ -2,16 +2,16 @@
 import { RouterLink } from 'vue-router'; 
 import ProjectCard from '@/components/ProjectCard.vue';
 import Card from '../components/Card.vue';
-import featuredBlogList from '@/data/featuredBlogList';
-import featuredProjectList from '@/data/featuredProjectList';
-import { onBeforeMount, ref } from 'vue';
+import {  onMounted, ref } from 'vue';
 
 const blogs = ref([]);
 const projects = ref([]);
 
-onBeforeMount(()=>{
-  blogs.value = featuredBlogList;
-  projects.value = featuredProjectList;
+onMounted( async()=>{
+  const blogResponse = await fetch('/featured-blogs');
+  const projectResponse = await fetch('/featured-projects');
+  blogs.value = await blogResponse.json();
+  projects.value = await projectResponse.json();
 })
 
 </script>
@@ -37,7 +37,7 @@ onBeforeMount(()=>{
   <div class="row g-4 mb-5"> 
     <h4><strong>Featured Projects</strong></h4>
      <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
-      <ProjectCard :title="`${project.title}`" :image="`${project.image}`"  :body="`${project.body}`"  :githubLink="`${project.githubLink}`" />
+      <ProjectCard :name="project.name" :image="project.image" :description="project.description" :github="project.github" :languages="project.languages" />
     </div>
 
     <div class="col-12 text-center mt-4">
@@ -45,12 +45,12 @@ onBeforeMount(()=>{
     </div>
       <h4 class="mt-5"><strong>Featured Posts</strong></h4>
 
-    <div v-for="post in blogs" :key="post.id" class="col-12 col-md-6 col-lg-4">
-      <Card :id="`${post.id}`" :title="post.title" :body="post.body" :image="`${post.image}`" :avatar="`${post.avatar}`" :date="`${post.date}`" :category="`${post.category}`"/>
+    <div v-for="blog in blogs" :key="blog.id" class="col-12 col-md-6 col-lg-4">
+      <Card :slug="blog.slug" :title="blog.title" :body="blog.body" :image="blog.image" :avatar="blog.avatar" :date="blog.date" :category="blog.category" />
     </div>
     <div class="col-12 text-center mt-4">
       <RouterLink to="/blog" class="btn btn-outline-primary">View More Posts</RouterLink>
     </div>
   </div>
 </template>
-
+<!-- ok -->

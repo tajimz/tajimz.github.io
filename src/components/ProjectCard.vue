@@ -1,10 +1,10 @@
 <script setup>
 defineProps({
-    title: {
+    name: {
         type: String,
         default: 'Project Name'
     },
-    body: {
+    description: {
         type: String,
         default: 'A brief overview of the technical challenges solved and the impact of the project.'
     },
@@ -12,44 +12,46 @@ defineProps({
         type: String,
         default: 'https://picsum.photos/600/400'
     },
-    tags: {
+    languages: {
         type: Array,
-        default: () => ['Vue.js', 'Bootstrap']
+        default: () => []
     },
-    githubLink: {
+    github: {
         type: String,
-        default: '#'
+        default: 'https://github.com/tajimz'
     }
     
 });
+
+
 </script>
 
 <template>
     <div class="card h-100 shadow-sm border-0 project-card">
         <div class="card-img-container">
-            <img :src="image" class="card-img-top" :alt="title">
+            <img :src="image" class="card-img-top" :alt="name">
             
         </div>
 
         <div class="card-body p-4 d-flex flex-column">
             <div class="mb-3">
-                <span v-for="tag in tags" :key="tag" 
+                <span v-for="language in languages" :key="language.id" 
                       class="badge bg-light text-primary border me-1 fw-medium">
-                    {{ tag }}
+                    {{ language.name }}
                 </span>
             </div>
 
             <h5 class="card-title fw-bold mb-2 text-dark">
-                {{ title }}
+                {{ name }}
             </h5>
             
             <p class="card-text text-muted small mb-4">
-                {{ body }}
+                {{ description }}
             </p>
 
             <div class="mt-auto d-flex gap-2">
                 
-                <a :href="githubLink" target="_blank" class="btn btn-outline-secondary btn-sm px-3 flex-grow-1">
+                <a :href="github" target="_blank" class="btn btn-outline-secondary btn-sm px-3 flex-grow-1">
                     <i class="bi bi-github"></i> View on Github
                 </a>
             </div>
@@ -85,7 +87,6 @@ defineProps({
     transform: scale(1.1);
 }
 
-/* Optional overlay effect */
 .card-img-overlay {
     background: rgba(13, 110, 253, 0.2);
     opacity: 0;
@@ -96,3 +97,5 @@ defineProps({
     opacity: 1;
 }
 </style>
+
+<!-- ok -->

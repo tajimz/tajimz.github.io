@@ -16,4 +16,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/blogs': 'http://localhost:8000',
+      '/blogs/*': 'http://localhost:8000',
+      '/featured-blogs': 'http://localhost:8000',
+      '/projects': 'http://localhost:8000',
+      '/featured-projects': 'http://localhost:8000',
+    },
+  },
 })

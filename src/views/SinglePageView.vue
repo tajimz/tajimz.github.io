@@ -1,13 +1,13 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue';
+import {onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import blogList from '@/data/blogList';
 
     const postId = useRoute().params.id;
-    const post = ref([]);
-    onBeforeMount(/*async*/()=>{
-        //const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-        post.value = /*await response.json();*/  blogList.find(item => item.id === postId);
+    const post = ref({});
+    onMounted(async()=>{
+        const response = await fetch(`/blogs/${postId}`);
+        const data = await response.json();
+        post.value = data[0]; 
     })
 </script>
 
@@ -89,9 +89,10 @@ import blogList from '@/data/blogList';
   border-color: rgba(0,0,0,0.08) !important;
 }
 
-/* Minimal hover for social icons */
 .article-content a:hover {
   opacity: 0.7;
   transform: translateY(-2px);
 }
 </style>
+
+<!-- ok -->

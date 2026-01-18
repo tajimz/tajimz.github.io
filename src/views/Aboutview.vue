@@ -1,16 +1,14 @@
-
-
 <script setup>
 import ProjectCard from '@/components/ProjectCard.vue';
-import { onBeforeMount, ref } from 'vue';
-import projectList from '@/data/projectList';
+import {  onMounted, ref } from 'vue';
 
   const projects = ref([]);
   const allProjects = ref([]);
   const lastProjectId = ref(0);
-  onBeforeMount(/*async*/()=>{
-    //const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = /*await response.json();*/ projectList;
+
+  onMounted(async()=>{
+    const response = await fetch('/projects');
+    const data = await response.json();
     allProjects.value = data;
     projects.value = data.slice(0,10);
 
@@ -37,11 +35,15 @@ import projectList from '@/data/projectList';
   <div class="row g-4"> 
     <h4><strong>Projects I've done</strong></h4>
     <div v-for="project in projects" :key="project.id" class="col-12 col-md-6 col-lg-4">
-      <ProjectCard :title="`${project.title}`" :body="`${project.body}`" :image="`${project.image}`" :githubLink="`${project.githubLink}`"/>
+      <ProjectCard :name="project.name" :description="project.description" :image="project.image" :github="project.github" :languages="project.languages"/>
+      
     </div>
-    <button @click="loadMore()" class="btn btn-outline-primary mx-3 p-2" >Show More Projects</button>
+    
 
     
     
   </div>
+  <div class="row mt-5" v-if="projects.length < allProjects.length" ><button @click="loadMore()" class="btn btn-outline-primary mx-3 p-2" >Show More Projects</button></div>
 </template>
+
+<!-- ok -->

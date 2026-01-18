@@ -1,34 +1,41 @@
 <script setup>
 defineProps({
     title: {
+        type: String,
         default: 'The Future of Sustainable Design'
     },
     body: {
+        type: String,
         default: 'Exploring how minimalist architecture and renewable materials are shaping the urban landscapes of 2026...'
     },
     category: {
+        type: String,
         default: 'Architecture'
     },
     date: {
+        type: String,
         default: '24 May, 2026'
     },
     image: {
+        type: String,
         default: 'https://picsum.photos/800/600'
     },
     avatar: {
+        type: String,
         default: 'https://picsum.photos/100/100'
     },
-    id: {
-        default: '1'
-    }
-});
+    slug: {
+        type: String,
+        required: true
+    }});
+    
 </script>
 
 <template>
-    <div class="card h-100 border-1 shadow-sm overflow-hidden hover-shadow-lg">
+    <div class="card h-100 border shadow-sm overflow-hidden custom-hover-effect">
         
-        <div class="card-img-container">
-            <img :src="image" class="card-img-top" alt="Header Image">
+        <div class="ratio ratio-16x9">
+            <img :src="image" class="card-img-top object-fit-cover" :alt="title">
         </div>
 
         <div class="card-body p-4 d-flex flex-column">
@@ -42,16 +49,16 @@ defineProps({
                 <small class="text-muted fw-medium">{{ date }}</small>
             </div>
 
-            <h5 class="card-title fw-bold mb-2">
+            <h5 class="card-title fw-bold mb-2 text-line-clamp-2">
                 {{ title }}
             </h5>
 
-            <p class="card-text text-muted small mb-4 line-clamp-2">
+            <p class="card-text text-muted small mb-4 text-line-clamp-2">
                 {{ body }}
             </p>
 
             <div class="mt-auto pt-3 border-top">
-                <RouterLink :to="`/blog/${id}`" class="link-primary text-decoration-none fw-bold small text-uppercase">
+                <RouterLink :to="`/blog/${slug}`" class="link-primary text-decoration-none fw-bold small text-uppercase d-inline-flex align-items-center">
                     Read Article <i class="bi bi-chevron-right ms-1"></i>
                 </RouterLink>
             </div>
@@ -60,42 +67,27 @@ defineProps({
 </template>
 
 <style scoped>
-/* Card 1 Animation & Sizing Logic */
-.hover-shadow-lg {
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+.custom-hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.hover-shadow-lg:hover {
+
+.custom-hover-effect:hover {
     transform: translateY(-4px);
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.125) !important;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important; 
 }
 
-/* Matching the first card's image height exactly */
-.card-img-container {
-    height: 180px; 
-    position: relative;
-    overflow: hidden;
-}
-
-.card-img-top {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Title and Body line clamping to prevent size breaking */
-.card-title {
+.text-line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+}
+
+h5.text-line-clamp-2 {
     min-height: 3rem; 
 }
-
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 </style>
+
+<!-- ok -->
